@@ -11,7 +11,7 @@ app.options('*', cors());
 
 // Structure config system
 app.use(function (req, res, next) {
-    res.setHeader('X-Powered-By', 'TRAN KY HOA THANH Example Clawler');
+    res.setHeader('X-Powered-By', 'TRAN KY HOA THANH Example Clawler ItViec');
     next();
 });
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -21,7 +21,8 @@ app.use(bodyParser.json());
 var defaultController = require('./Controller/defaultController')();
 app.use("/", defaultController);
 
-
+var companiesController = require('./Controller/companiesController')();
+app.use("/companies", companiesController);
 
 // Run system
 server.listen(port, function() {

@@ -1,6 +1,8 @@
-var express = require('express')
-var cheerio = require('cheerio');
-var request = require('request');
+let express = require('express')
+let cheerio = require('cheerio');
+let request = require('request');
+let { Company } = require('../connection/sequelize')
+let _ = require('lodash');
 
 var router = express.Router()
 var routes = function () {
@@ -74,6 +76,28 @@ var routes = function () {
 
         // Distinct list Response
         listUrl = listUrl.filter((v,i) => listUrl.indexOf(v) === i)
+
+        // insert all to company table
+        for(let i = 0, len = listUrl.length; i < len; i++)
+        {
+            try {
+                await Company.findOrCreate(
+                    {
+                        where: {
+                            url: listUrl[i].url
+                        },
+                        defaults: {
+                            name: listUrl[i].name,
+                            url: listUrl[i].url
+                        }
+                    }
+                )
+            }
+            catch (err)
+            {
+                
+            }
+        }
 
         return res.status(200).json({
             data: listUrl,
