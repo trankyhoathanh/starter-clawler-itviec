@@ -4,12 +4,12 @@ let { Company , Op } = require('../connection/sequelize')
 var router = express.Router()
 var routes = function () {
 
-    router.route('/first')
+    router.route('/second')
     .get(async (req, res) => {
         return res.status(200).json({
             data: null,
             statusCode: 200,
-            message: 'first'
+            message: 'second'
         });
     })
 
