@@ -13,21 +13,34 @@ var routes = function () {
         });
     })
 
+    router.route('/all')
+    .get(async (req, res) => {
+        let data = await Company.findAll()
+
+        return res.status(200).json({
+            data: data,
+            statusCode: 200,
+            message: 'Get All Succeed'
+        });
+    });
+
     router.route('/search')
     .get(async (req, res) => {
 
-        data = await Company.findAll({
-            limit: 10,
+        let keySearch = req.query.keysearch ? req.query.keysearch : ''
+
+        let data = await Company.findAll({
+            limit: 20,
             where: {
                 [Op.or]: [
                     {
                         name: {
-                            [Op.like]: '%' + req.query.keysearch + '%'
+                            [Op.like]: `%${keySearch}%`
                         }
                     },
                     {
                         url: {
-                            [Op.like]: '%' + req.query.keysearch + '%'
+                            [Op.like]: `%${keySearch}%`
                         }
                     }
                 ]

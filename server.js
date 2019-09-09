@@ -1,6 +1,6 @@
 var express = require('express');
 var app = express();
-var port = process.env.port || 30001;
+var port = process.env.port || 50001;
 var server = require("http").Server(app);
 var bodyParser = require('body-parser');
 
@@ -16,6 +16,9 @@ app.use(function (req, res, next) {
 });
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+prodServiceLocator = require('./structure/serviceLocator')()
+prodServiceLocator.register('database', require('./connection/sequelize'))
 
 // Structure CONTROLLERS
 var defaultController = require('./Controller/defaultController')();

@@ -1,8 +1,8 @@
 let express = require('express')
 let cheerio = require('cheerio');
 let request = require('request');
-let { Company } = require('../connection/sequelize')
 let _ = require('lodash');
+let { Company } = prodServiceLocator.get('database')
 
 var router = express.Router()
 var routes = function () {
@@ -49,10 +49,10 @@ var routes = function () {
                 ////////////////////////////////
                 // Hard this block to get ALL
                 // OPEN
-                if (requestCount > 5)
-                {
-                    continueRequest = false
-                }
+                // if (requestCount > 5)
+                // {
+                //     continueRequest = false
+                // }
                 //
                 // CLOSE
                 ////////////////////////////////
